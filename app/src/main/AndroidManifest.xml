@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndersenTask">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.ProductListActivity"
             android:exported="true"
             android:theme="@style/Theme.AndersenTask">
             <intent-filter>

@@ -1,6 +1,5 @@
 package com.sultonuzdev.andersentask.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sultonuzdev.andersentask.domain.model.Product
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 class MainViewModel(
     private val repository: ProductRepository
 ) : ViewModel() {
@@ -33,32 +31,35 @@ class MainViewModel(
         viewModelScope.launch {
             loadCategories()
             setupSearchFlow()
+
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     private suspend fun setupSearchFlow() {
         searchQueryFlow.debounce(300).distinctUntilChanged().flatMapLatest { query ->
-                if (query.isEmpty()) {
-                    flowOf(_state.value.currentCategoryProducts)
-                } else {
-                    repository.searchProducts(
-                        categoryId = _state.value.currentCategoryId, query = query
-                    )
-                }
-            }.collectLatest { result ->
-                _state.update { it.copy(filteredProducts = result) }
+            if (query.isEmpty()) {
+                flowOf(_state.value.currentCategoryProducts)
+            } else {
+                repository.searchProducts(
+                    categoryId = _state.value.currentCategoryId, query = query
+                )
             }
+        }.collectLatest { result ->
+            _state.update { it.copy(filteredProducts = result) }
+        }
     }
 
-    private suspend fun loadCategories() {
-        val categories = repository.getAllCategories()
-        val firstImages = repository.getFirstImagesOfEachCategory()
+    private fun loadCategories() {
+        viewModelScope.launch {
+            val categories = repository.getAllCategories()
+            val firstImages = repository.getFirstImagesOfEachCategory()
 
-        _state.update {
-            it.copy(categories = categories, categoryImagesSize = firstImages.size)
-        }
-        if (categories.isNotEmpty()) {
-            loadProductsForPage(0)
+            _state.update { it.copy(categories = categories, categoryImages = firstImages) }
+
+            if (categories.isNotEmpty()) {
+                loadProductsForPage(0)
+            }
         }
     }
 
@@ -76,25 +77,24 @@ class MainViewModel(
 
 
     private fun loadProductsForPage(pageIndex: Int) {
-
         val category = _state.value.categories.getOrNull(pageIndex) ?: return
 
         viewModelScope.launch {
-            _state.update { it.copy(currentPage = pageIndex, isLoading = true) }
-
+            _state.update {
+                it.copy(
+                    currentPage = pageIndex,
+                    isLoading = true,
+                    currentCategoryId = category.id,
+                )
+            }
             val products = repository.getProductsByCategory(category.id)
-
-            val imageSource = products.firstOrNull()?.image
-
             _state.update { currentState ->
                 currentState.copy(
                     currentCategoryProducts = products,
                     filteredProducts = products,
-                    currentCategoryImage = imageSource,
-                    currentCategoryId = category.id,
                     searchQuery = "",
                     isLoading = false,
-                    categoryStatistics = currentState.categoryStatistics.copy(
+                    categoryProductStatistics = currentState.categoryProductStatistics.copy(
                         categoryName = category.title,
                         totalProduct = products.size,
                         topCharacter = calculateTopOccurrenceCharacter(products)

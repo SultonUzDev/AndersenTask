@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.AndersenTask" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/fab_blue</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="android:statusBarColor">@color/greenish_background</item>
+    </style>
 
-    <style name="Theme.AndersenTask" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="fab_3_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
