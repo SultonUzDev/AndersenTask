@@ -10,10 +10,12 @@ A technical assessment project implementing an image carousel with synchronized 
 - Dual implementation: Compose (feature/compose_productlist) and XML (feature/xml_productlist)
 
 ## Screenshots
+<div align="center">
+  <img src="screenshots/home.png" width="200"  alt="Carousel & List  "/>
+  <img src="screenshots/search.png" width="200"  alt="Search Active"/>
+  <img src="screenshots/statistics.png" width="200"  alt="Statistics"/>
+</div>
 
-| Carousel & List           | Search Active               | Statistics                 |
-|---------------------------|-----------------------------|----------------------------|
-| ![](screenshots/main.png) | ![](screenshots/search.png) | ![](screenshots/stats.png) |
 
 ## Architecture
 
