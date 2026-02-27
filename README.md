@@ -7,7 +7,7 @@ A technical assessment project implementing an image carousel with synchronized 
 - Sticky search bar with real-time filtering
 - Statistics bottom sheet (item count + top 3 characters)
 - No third-party libraries
-- Dual implementation: Compose (feature/compose_productlist) & XML (feature/xml_productlist)
+- Dual implementation: Compose (feature/compose_productlist) and XML (feature/xml_productlist)
 
 ## Screenshots
 
