@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -38,6 +40,23 @@ android {
 }
 
 dependencies {
+
+
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+
+    //koin
+    implementation(libs.bundles.koin)
+
+    // Room Database
+    implementation(libs.bundles.room)
+    implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.material3)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.compose.material.icons.extended)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

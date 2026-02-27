@@ -1,6 +1,5 @@
-package com.sultonuzdev.andersentask.ui.theme
+package com.sultonuzdev.andersentask.core.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
