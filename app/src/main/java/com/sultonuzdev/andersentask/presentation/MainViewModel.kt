@@ -1,6 +1,5 @@
 package com.sultonuzdev.andersentask.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sultonuzdev.andersentask.domain.model.Product
@@ -38,16 +37,16 @@ class MainViewModel(
 
     private suspend fun setupSearchFlow() {
         searchQueryFlow.debounce(300).distinctUntilChanged().flatMapLatest { query ->
-                if (query.isEmpty()) {
-                    flowOf(_state.value.currentCategoryProducts)
-                } else {
-                    repository.searchProducts(
-                        categoryId = _state.value.currentCategoryId, query = query
-                    )
-                }
-            }.collectLatest { result ->
-                _state.update { it.copy(filteredProducts = result) }
+            if (query.isEmpty()) {
+                flowOf(_state.value.currentCategoryProducts)
+            } else {
+                repository.searchProducts(
+                    categoryId = _state.value.currentCategoryId, query = query
+                )
             }
+        }.collectLatest { result ->
+            _state.update { it.copy(filteredProducts = result) }
+        }
     }
 
     private suspend fun loadCategories() {
@@ -104,18 +103,37 @@ class MainViewModel(
         }
     }
 
-
     fun calculateTopOccurrenceCharacter(
         products: List<Product>
     ): Map<Char, Int> {
         val countMap = mutableMapOf<Char, Int>()
+
         products.forEach { productItem ->
-            productItem.title.lowercase().forEach { char ->
-                if (char.isLetter()) {
-                    countMap[char] = countMap.getOrDefault(char, 0) + 1
-                }
+            mergeCharCount(countMap, calculateCharCount(productItem.title))
+            mergeCharCount(countMap, calculateCharCount(productItem.subtitle))
+        }
+
+        return countMap.toList()
+            .sortedByDescending { it.second }
+            .take(3)
+            .toMap()
+    }
+
+    private fun mergeCharCount(target: MutableMap<Char, Int>, source: Map<Char, Int>) {
+        source.forEach { (char, count) ->
+            target[char] = target.getOrDefault(char, 0) + count
+        }
+    }
+
+    private fun calculateCharCount(str: String): Map<Char, Int> {
+        val countMap = mutableMapOf<Char, Int>()
+        str.lowercase().forEach {
+            if (it.isLetter()) {
+                countMap[it] = countMap.getOrDefault(it, 0) + 1
             }
         }
-        return countMap.toList().sortedByDescending { it.second }.take(3).toMap()
+        return countMap
     }
+
+
 }

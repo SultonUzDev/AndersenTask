@@ -1,23 +1,15 @@
 package com.sultonuzdev.andersentask
 
 import android.app.Application
-import com.sultonuzdev.andersentask.di.appModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.GlobalContext.startKoin
-import org.koin.core.logger.Level
+import com.sultonuzdev.andersentask.di.AppContainer
+import com.sultonuzdev.andersentask.di.AppContainerImpl
 
 class MainApplication : Application() {
+    lateinit var container: AppContainer
+        private set
 
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidContext(this@MainApplication)
-            androidLogger(Level.ERROR)
-
-            modules(
-                appModule
-            )
-        }
+        container = AppContainerImpl(this)
     }
 }

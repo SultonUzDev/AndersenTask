@@ -46,13 +46,12 @@ import com.sultonuzdev.andersentask.presentation.components.CategoryStatistics
 import com.sultonuzdev.andersentask.presentation.components.ImagePager
 import com.sultonuzdev.andersentask.presentation.components.ProductItemScreen
 import com.sultonuzdev.andersentask.presentation.components.SearchBar
-import org.koin.androidx.compose.koinViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ProductScreen(
-    viewModel: MainViewModel = koinViewModel()
+    viewModel: MainViewModel
 ) {
     val uiState by viewModel.state.collectAsState()
 

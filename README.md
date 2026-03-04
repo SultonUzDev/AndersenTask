@@ -51,7 +51,6 @@ User swipes carousel
 - **Language:** Kotlin
 - **UI:** Jetpack Compose + Material3 / XML + ViewBinding
 - **Architecture:** MVVM, Repository Pattern
-- **DI:** Koin
 - **Reactive:** Coroutines, Flow, StateFlow
 - **Components:** ViewPager2, LazyColumn, BottomSheet
 
