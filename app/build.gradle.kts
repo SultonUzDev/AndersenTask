@@ -51,9 +51,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
 
 
-    //koin
-    implementation(libs.bundles.koin)
-
     // Room Database
     implementation(libs.bundles.room)
     implementation(libs.androidx.compose.foundation.layout)

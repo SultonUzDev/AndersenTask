@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
@@ -17,18 +18,24 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.sultonuzdev.andersentask.MainApplication
 import com.sultonuzdev.andersentask.R
 import com.sultonuzdev.andersentask.databinding.ActivityProductListBinding
 import com.sultonuzdev.andersentask.presentation.adapters.ImagePagerAdapter
 import com.sultonuzdev.andersentask.presentation.adapters.ProductListItemAdapter
+import com.sultonuzdev.andersentask.presentation.viewmodel.MainViewModel
+import com.sultonuzdev.andersentask.presentation.viewmodel.MainViewModelFactory
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProductListActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityProductListBinding
-    private val viewModel: MainViewModel by viewModel()
+    private val container by lazy { (application as MainApplication).container }
 
+    private lateinit var binding: ActivityProductListBinding
+
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory(container.repository)
+    }
     private lateinit var imageViewPagerAdapter: ImagePagerAdapter
     private lateinit var productListItemAdapter: ProductListItemAdapter
 

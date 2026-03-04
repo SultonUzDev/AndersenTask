@@ -1,9 +1,10 @@
-package com.sultonuzdev.andersentask.presentation
+package com.sultonuzdev.andersentask.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sultonuzdev.andersentask.domain.model.Product
 import com.sultonuzdev.andersentask.domain.repository.ProductRepository
+import com.sultonuzdev.andersentask.presentation.ProductScreenState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -109,13 +110,33 @@ class MainViewModel(
         products: List<Product>
     ): Map<Char, Int> {
         val countMap = mutableMapOf<Char, Int>()
+
         products.forEach { productItem ->
-            productItem.title.lowercase().forEach { char ->
-                if (char.isLetter()) {
-                    countMap[char] = countMap.getOrDefault(char, 0) + 1
-                }
+            mergeCharCount(countMap, calculateCharCount(productItem.title))
+            mergeCharCount(countMap, calculateCharCount(productItem.subtitle))
+        }
+
+        return countMap.toList()
+            .sortedByDescending { it.second }
+            .take(3)
+            .toMap()
+    }
+
+    private fun mergeCharCount(target: MutableMap<Char, Int>, source: Map<Char, Int>) {
+        source.forEach { (char, count) ->
+            target[char] = target.getOrDefault(char, 0) + count
+        }
+    }
+
+    private fun calculateCharCount(str: String): Map<Char, Int> {
+        val countMap = mutableMapOf<Char, Int>()
+        str.lowercase().forEach {
+            if (it.isLetter()) {
+                countMap[it] = countMap.getOrDefault(it, 0) + 1
             }
         }
-        return countMap.toList().sortedByDescending { it.second }.take(3).toMap()
+        return countMap
     }
+
+
 }

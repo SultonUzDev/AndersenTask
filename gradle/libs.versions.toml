@@ -11,7 +11,6 @@ composeBom = "2024.09.00"
 
 materialIconsExtended = "1.7.8"
 navigationCompose = "2.9.7"
-koin = "4.0.0"
 room = "2.8.4"
 ksp = "2.3.2"
 foundationLayout = "1.10.2"
@@ -50,9 +49,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 
 
 
-# koin
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+
 
 # Room
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -70,5 +67,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 room = ["androidx-room-runtime", "androidx-room-ktx"]
-koin =["koin-android","koin-androidx-compose"]
 
