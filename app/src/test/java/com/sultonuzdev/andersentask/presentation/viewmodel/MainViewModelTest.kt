@@ -108,7 +108,7 @@ class MainViewModelTest {
         assertEquals("", state.searchQuery)
 
 
-        val filteredProducts = fakeProductRepository.testProducts
+        val filteredProducts = fakeProductRepository.getProductsByCategory(1)
 
         assertEquals(filteredProducts, state.filteredProducts)
 
