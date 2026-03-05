@@ -131,7 +131,7 @@ class MainViewModel(
     private fun calculateCharCount(str: String): Map<Char, Int> {
         val countMap = mutableMapOf<Char, Int>()
         str.lowercase().forEach {
-            if (it.isLetter()) {
+            if (it.isLetterOrDigit()) {
                 countMap[it] = countMap.getOrDefault(it, 0) + 1
             }
         }
