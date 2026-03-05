@@ -1,9 +1,10 @@
-package com.sultonuzdev.andersentask.presentation
+package com.sultonuzdev.andersentask.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sultonuzdev.andersentask.domain.model.Product
 import com.sultonuzdev.andersentask.domain.repository.ProductRepository
+import com.sultonuzdev.andersentask.presentation.ProductScreenState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -128,7 +129,7 @@ class MainViewModel(
     private fun calculateCharCount(str: String): Map<Char, Int> {
         val countMap = mutableMapOf<Char, Int>()
         str.lowercase().forEach {
-            if (it.isLetter()) {
+            if (it.isLetterOrDigit()) {
                 countMap[it] = countMap.getOrDefault(it, 0) + 1
             }
         }

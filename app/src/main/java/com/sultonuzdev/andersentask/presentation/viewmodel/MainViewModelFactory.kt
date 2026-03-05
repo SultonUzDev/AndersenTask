@@ -3,7 +3,7 @@ package com.sultonuzdev.andersentask.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.sultonuzdev.andersentask.domain.repository.ProductRepository
-import com.sultonuzdev.andersentask.presentation.MainViewModel
+import com.sultonuzdev.andersentask.presentation.viewmodel.MainViewModel
 
 class MainViewModelFactory(
     private val repository: ProductRepository

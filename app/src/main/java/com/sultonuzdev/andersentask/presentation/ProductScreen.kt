@@ -40,12 +40,13 @@ import com.sultonuzdev.andersentask.core.ui.theme.ComponentSize
 import com.sultonuzdev.andersentask.core.ui.theme.FloatButtonBlueColor
 import com.sultonuzdev.andersentask.core.ui.theme.GreenishBackground
 import com.sultonuzdev.andersentask.core.ui.theme.Spaces
-import com.sultonuzdev.andersentask.domain.model.categoryLists
-import com.sultonuzdev.andersentask.domain.model.productLists
+import com.sultonuzdev.andersentask.domain.model.SampleData.categoryLists
+import com.sultonuzdev.andersentask.domain.model.SampleData.productLists
 import com.sultonuzdev.andersentask.presentation.components.CategoryStatistics
 import com.sultonuzdev.andersentask.presentation.components.ImagePager
 import com.sultonuzdev.andersentask.presentation.components.ProductItemScreen
 import com.sultonuzdev.andersentask.presentation.components.SearchBar
+import com.sultonuzdev.andersentask.presentation.viewmodel.MainViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)

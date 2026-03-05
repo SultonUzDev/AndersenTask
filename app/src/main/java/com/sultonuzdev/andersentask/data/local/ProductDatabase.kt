@@ -8,7 +8,7 @@ import com.sultonuzdev.andersentask.data.local.entities.ProductEntity
 @Database(
     entities = [ProductEntity::class, CategoryEntity::class],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class ProductDatabase : RoomDatabase() {
     abstract val dao: ProductDao
